@@ -1,0 +1,53 @@
+plugins {
+    id 'com.android.dynamic-feature'
+    id 'kotlin-android'
+}
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.example.dynamic_feature"
+        minSdkVersion 24
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+        prod {
+            dimension "default"
+        }
+        dev {
+            dimension "default"
+            resConfigs("es", "xxhdpi")
+            versionNameSuffix '-DEV'
+        }
+    }
+
+    buildTypes {
+        buildTypes {
+            debug {
+                debuggable true
+            }
+            release {
+                debuggable false
+            }
+            qa {
+                debuggable true
+                matchingFallbacks = ['qa', 'release']
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation project(":app")
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+}
